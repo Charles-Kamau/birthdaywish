@@ -15,7 +15,7 @@
                 radial-gradient(#ffb703 10%, transparent 11%),
                 radial-gradient(#0077b6 10%, transparent 11%);
             background-size: 80px 80px;
-            background-position: 0 0, 40px 40px, 20px 60px, 60px 20px;
+            background-position: 0px 0px, 40px 40px, 20px 60px, 60px 20px;
             color: #333;
             display: flex;
             flex-direction: column;
@@ -31,7 +31,7 @@
         }
 
         @keyframes backgroundMove {
-            0% { background-position: 0 0, 40px 40px, 20px 60px, 60px 20px; }
+            0% { background-position: 0px 0px, 40px 40px, 20px 60px, 60px 20px; }
             100% { background-position: 80px 80px, 120px 120px, 100px 140px, 140px 100px; }
         }
 
@@ -80,11 +80,12 @@
             color: #ff477e;
             font-size: 2.5rem;
             margin-bottom: 10px;
-            animation: bounce 2s infinite;
+            transform: translateY(0px);
+            animation: bounce 2s ease-in-out infinite;
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
+            0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
 
@@ -101,7 +102,7 @@
             border-radius: 15px;
             border: 2px dashed #ffb703;
             position: relative;
-            min-height: 200px; /* Ensures the box handles the moving button */
+            min-height: 200px;
         }
 
         h3 {
@@ -142,7 +143,11 @@
             cursor: default;
             position: relative;
             z-index: 10;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Snappy fly away effect */
+            transform: translate(0px, 0px);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Prevents strange sticky zooms or text highlights on mobile drag attempts */
+            touch-action: none;
+            user-select: none;
         }
 
         .message {
@@ -151,6 +156,7 @@
             color: #2ec4b6;
             display: none;
             font-size: 1.2rem;
+            transform: scale(1);
             animation: pulse 1s infinite;
         }
 
@@ -192,7 +198,7 @@
         @keyframes floatUp {
             0% {
                 bottom: -100px;
-                transform: translateX(0) rotate(0deg);
+                transform: translateX(0px) rotate(0deg);
             }
             50% {
                 transform: translateX(50px) rotate(10deg);
@@ -218,28 +224,26 @@
         <h1>Happy Birthday! 🎂✨</h1>
         
         <p class="wish">
-            Wishing you a day filled with endless laughter, beautiful moments and all the love your heart can hold. You deserve the absolute best today and every day. Cheers to another amazing year of ageing like fine wine! Happy 26th Omwanchi ❤️
+            Wishing you a day filled with endless laughter, beautiful moments and all the love your heart can hold. You deserve the absolute best today and every day. Cheers to another amazing year of ageing finely like wine! Happy 26th Omwanchi❤️
         </p>
 
         <div class="poll-container">
-            <h3>Where are you finishing my money from? 🤔😅</h3>
+            <h3>Where are we taking you for your birthday treat? 🤔</h3>
             
-            <!-- Glee Hotel option (Now securely flies within the card container boundaries) -->
-            <button class="btn btn-disabled" id="elusive-btn" onmouseover="flyAway()">Glee Hotel 🏨</button>
-            
-            <!-- Kibandaski Option -->
+            <!-- Added unified pointer events to capture mouse hovers AND mobile taps instantly -->
+            <button class="btn btn-disabled" id="elusive-btn" onmouseenter="flyAway()" ontouchstart="flyAway()">Glee Hotel 🏨</button>
             <button class="btn btn-clickable" onclick="submitVote()">Kibandaski (kwa mathee) 🍲</button>
             
-            <div id="vote-message" class="message">Excellent choice! Chapo beans za 100 it is! Be sure to bring the appetite my dear fundi 😂! 🎉</div>
+            <div id="vote-message" class="message">Excellent choice! Chapo dondo it is! See you there! 🎉</div>
         </div>
     </div>
 
     <script>
-        // --- Fixed Elusive Button Logic ---
+        // --- Elusive Button Logic ---
         function flyAway() {
             const btn = document.getElementById('elusive-btn');
             
-            // Constrain movement to keep it perfectly within the boundaries of the vote box
+            // Fixed range boundaries
             const randomX = Math.floor(Math.random() * 160) - 80; 
             const randomY = Math.floor(Math.random() * 120) - 60; 
             
@@ -247,10 +251,7 @@
         }
 
         function submitVote() {
-            // Unhide the success response block
             document.getElementById('vote-message').style.display = 'block';
-            
-            // Instantly snap the elusive button back to its starting home position
             const btn = document.getElementById('elusive-btn');
             btn.style.transform = 'translate(0px, 0px)';
         }
@@ -292,15 +293,3 @@
             balloon.style.left = Math.random() * 100 + 'vw';
             
             const scale = (Math.random() * 0.6) + 0.7;
-            balloon.style.transform = scale(${scale});
-            const duration = (Math.random() * 4) + 6;
-            balloon.style.animationDuration = duration + 's';
-            const string = document.createElement('div');
-            string.className = 'balloon-string';
-            balloon.appendChild(string);
-            document.body.appendChild(balloon);
-            setTimeout(() => {
-            balloon.remove();
-            }, duration * 1000);
-            }
-            setInterval(createBalloon, 800);
