@@ -1,295 +1,205 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday! 🎉</title>
-    <style>
-        /* Festive Animated Confetti Background */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #ffe6eb;
-            background-image: 
-                radial-gradient(#ff477e 10%, transparent 11%),
-                radial-gradient(#2ec4b6 10%, transparent 11%),
-                radial-gradient(#ffb703 10%, transparent 11%),
-                radial-gradient(#0077b6 10%, transparent 11%);
-            background-size: 80px 80px;
-            background-position: 0px 0px, 40px 40px, 20px 60px, 60px 20px;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-            position: relative;
-            animation: backgroundMove 15s linear infinite;
+
+```
+<title>Happy Birthday! 🎉</title>
+
+<style>
+    /* ================================
+       GENERAL PAGE STYLING
+       ================================ */
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        background: #ffe6eb;
+
+        background-image:
+            radial-gradient(#ff477e 10%, transparent 11%),
+            radial-gradient(#2ec4b6 10%, transparent 11%),
+            radial-gradient(#ffb703 10%, transparent 11%),
+            radial-gradient(#0077b6 10%, transparent 11%);
+
+        background-size: 80px 80px;
+
+        background-position:
+            0px 0px,
+            40px 40px,
+            20px 60px,
+            60px 20px;
+
+        color: #333;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        min-height: 100vh;
+
+        margin: 0;
+        padding: 20px;
+
+        overflow: hidden;
+
+        position: relative;
+
+        animation: backgroundMove 15s linear infinite;
+    }
+
+    @keyframes backgroundMove {
+        0% {
+            background-position:
+                0px 0px,
+                40px 40px,
+                20px 60px,
+                60px 20px;
         }
 
-        @keyframes backgroundMove {
-            0% { background-position: 0px 0px, 40px 40px, 20px 60px, 60px 20px; }
-            100% { background-position: 80px 80px, 120px 120px, 100px 140px, 140px 100px; }
+        100% {
+            background-position:
+                80px 80px,
+                120px 120px,
+                100px 140px,
+                140px 100px;
+        }
+    }
+
+
+    /* ================================
+       COUNTDOWN
+       ================================ */
+
+    .countdown-container {
+        background: rgba(255, 255, 255, 0.95);
+
+        padding: 15px 30px;
+
+        border-radius: 50px;
+
+        box-shadow:
+            0 10px 20px rgba(0, 0, 0, 0.1);
+
+        margin-bottom: 20px;
+
+        font-size: 1.2rem;
+
+        font-weight: bold;
+
+        color: #ff477e;
+
+        border: 2px solid #ff477e;
+
+        z-index: 5;
+
+        display: flex;
+
+        gap: 15px;
+
+        position: relative;
+    }
+
+    .countdown-item {
+        display: inline-block;
+        text-align: center;
+    }
+
+    .countdown-number {
+        font-size: 1.5rem;
+        color: #333;
+        display: block;
+    }
+
+
+    /* ================================
+       MAIN CARD
+       ================================ */
+
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+
+        backdrop-filter: blur(5px);
+
+        padding: 40px;
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.15);
+
+        text-align: center;
+
+        max-width: 500px;
+
+        width: 100%;
+
+        position: relative;
+
+        z-index: 5;
+
+        border: 3px solid #ff477e;
+    }
+
+
+    /* ================================
+       HEADING
+       ================================ */
+
+    h1 {
+        color: #ff477e;
+
+        font-size: 2.5rem;
+
+        margin-top: 0;
+        margin-bottom: 10px;
+
+        transform: translateY(0);
+
+        animation:
+            bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: translateY(0);
         }
 
-        /* Countdown Container Styles */
-        .countdown-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 30px;
-            border-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ff477e;
-            border: 2px solid #ff477e;
-            z-index: 5;
-            display: flex;
-            gap: 15px;
+        50% {
+            transform: translateY(-8px);
         }
+    }
 
-        .countdown-item {
-            display: inline-block;
-            text-align: center;
-        }
 
-        .countdown-number {
-            font-size: 1.5rem;
-            color: #333;
-            display: block;
-        }
+    /* ================================
+       BIRTHDAY MESSAGE
+       ================================ */
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-            z-index: 5;
-            border: 3px solid #ff477e;
-        }
+    .wish {
+        font-size: 1.2rem;
 
-        h1 {
-            color: #ff477e;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            transform: translateY(0px);
-            animation: bounce 2s ease-in-out infinite;
-        }
+        line-height: 1.6;
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
+        color: #555;
 
-        .wish {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 30px;
-        }
+        margin-bottom: 30px;
+    }
 
-        .poll-container {
-            background: #fff0f3;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px dashed #ffb703;
-            position: relative;
-            min-height: 200px;
-        }
 
-        h3 {
-            margin-top: 0;
-            color: #4a4a4a;
-        }
+    /* ================================
+       POLL
+       ================================ */
 
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            border: none;
-            box-sizing: border-box;
-            transition: background-color 0.2s;
-        }
+    .poll-container {
+        background: #fff0f3;
 
-        .btn-clickable {
-            background-color: #ff477e;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(255, 71, 126, 0.2);
-            position: relative;
-            z-index: 6;
-        }
-
-        .btn-clickable:hover {
-            background-color: #ff2a65;
-            transform: translateY(-2px);
-        }
-
-        .btn-disabled {
-            background-color: #e0e0e0;
-            color: #757575;
-            cursor: default;
-            position: relative;
-            z-index: 10;
-            transform: translate(0px, 0px);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            /* Prevents strange sticky zooms or text highlights on mobile drag attempts */
-            touch-action: none;
-            user-select: none;
-        }
-
-        .message {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #2ec4b6;
-            display: none;
-            font-size: 1.2rem;
-            transform: scale(1);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* Balloon Styles */
-        .balloon {
-            position: absolute;
-            bottom: -150px;
-            width: 60px;
-            height: 75px;
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            z-index: 1;
-            opacity: 0.85;
-            animation: floatUp 8s linear infinite;
-        }
-
-        .balloon::after {
-            content: "▲";
-            color: inherit;
-            font-size: 10px;
-            position: absolute;
-            bottom: -8px;
-            left: 24px;
-        }
-
-        .balloon-string {
-            position: absolute;
-            bottom: -38px;
-            left: 29px;
-            width: 2px;
-            height: 30px;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes floatUp {
-            0% {
-                bottom: -100px;
-                transform: translateX(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateX(50px) rotate(10deg);
-            }
-            100% {
-                bottom: 105vh;
-                transform: translateX(-50px) rotate(-10deg);
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Countdown Timer -->
-    <div class="countdown-container" id="countdown">
-        <div class="countdown-item"><span class="countdown-number" id="days">00</span>Days</div>
-        <div class="countdown-item"><span class="countdown-number" id="hours">00</span>Hrs</div>
-        <div class="countdown-item"><span class="countdown-number" id="minutes">00</span>Mins</div>
-        <div class="countdown-item"><span class="countdown-number" id="seconds">00</span>Secs</div>
-    </div>
-
-    <div class="card">
-        <h1>Happy Birthday! 🎂✨</h1>
-        
-        <p class="wish">
-            Wishing you a day filled with endless laughter, beautiful moments and all the love your heart can hold. You deserve the absolute best today and every day. Cheers to another amazing year of ageing finely like wine! Happy 26th Omwanchi❤️
-        </p>
-
-        <div class="poll-container">
-            <h3>Where are we taking you for your birthday treat? 🤔</h3>
-            
-            <!-- Added unified pointer events to capture mouse hovers AND mobile taps instantly -->
-            <button class="btn btn-disabled" id="elusive-btn" onmouseenter="flyAway()" ontouchstart="flyAway()">Glee Hotel 🏨</button>
-            <button class="btn btn-clickable" onclick="submitVote()">Kibandaski (kwa mathee) 🍲</button>
-            
-            <div id="vote-message" class="message">Excellent choice! Chapo dondo it is! See you there! 🎉</div>
-        </div>
-    </div>
-
-    <script>
-        // --- Elusive Button Logic ---
-        function flyAway() {
-            const btn = document.getElementById('elusive-btn');
-            
-            // Fixed range boundaries
-            const randomX = Math.floor(Math.random() * 160) - 80; 
-            const randomY = Math.floor(Math.random() * 120) - 60; 
-            
-            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
-
-        function submitVote() {
-            document.getElementById('vote-message').style.display = 'block';
-            const btn = document.getElementById('elusive-btn');
-            btn.style.transform = 'translate(0px, 0px)';
-        }
-
-        // --- Countdown Timer Logic ---
-        const targetDate = new Date("October 10, 2026 00:00:00").getTime();
-
-        const countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById("countdown").innerHTML = "The Big Day is Here! 🥳🎉";
-                return;
-            }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days.toString().padStart(2, '0');
-            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
-            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
-            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
-        }, 1000);
-
-        // --- Balloon Logic ---
-        const balloonColors = ['#ff477e', '#2ec4b6', '#ffb703', '#0077b6', '#ff70a6', '#70d6ff'];
-        
-        function createBalloon() {
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            
-            const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-            balloon.style.backgroundColor = color;
-            balloon.style.color = color; 
-            balloon.style.left = Math.random() * 100 + 'vw';
-            
-            const scale = (Math.random() * 0.6) + 0.7;
+        padding: 20px;
+```
