@@ -294,4 +294,13 @@
             
             // Append string
             const string = document.createElement('div');
-      
+            string.className = 'balloon-string';
+            balloon.appendChild(string);
+            document.body.appendChild(balloon);
+            // Clean up elements from DOM after they float away
+            setTimeout(() => {
+            balloon.remove();
+            }, duration * 1000);
+            }
+            // Generate balloons continuously
+            setInterval(createBalloon, 800);
