@@ -1,205 +1,741 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Happy Birthday! 🎉</title>
+    <title>Happy Birthday, Omwanchi! 🎉</title>
 
-<style>
-    /* ================================
-       GENERAL PAGE STYLING
-       ================================ */
+    <style>
+        /* ==================================
+           PAGE BACKGROUND SLIDESHOW
+           ================================== */
 
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-        background: #ffe6eb;
-
-        background-image:
-            radial-gradient(#ff477e 10%, transparent 11%),
-            radial-gradient(#2ec4b6 10%, transparent 11%),
-            radial-gradient(#ffb703 10%, transparent 11%),
-            radial-gradient(#0077b6 10%, transparent 11%);
-
-        background-size: 80px 80px;
-
-        background-position:
-            0px 0px,
-            40px 40px,
-            20px 60px,
-            60px 20px;
-
-        color: #333;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        min-height: 100vh;
-
-        margin: 0;
-        padding: 20px;
-
-        overflow: hidden;
-
-        position: relative;
-
-        animation: backgroundMove 15s linear infinite;
-    }
-
-    @keyframes backgroundMove {
-        0% {
-            background-position:
-                0px 0px,
-                40px 40px,
-                20px 60px,
-                60px 20px;
+        * {
+            box-sizing: border-box;
         }
 
-        100% {
-            background-position:
-                80px 80px,
-                120px 120px,
-                100px 140px,
-                140px 100px;
-        }
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
+            background-color: #ffe6eb;
+            color: #333;
 
-    /* ================================
-       COUNTDOWN
-       ================================ */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-    .countdown-container {
-        background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            margin: 0;
+            padding: 25px 15px;
 
-        padding: 15px 30px;
-
-        border-radius: 50px;
-
-        box-shadow:
-            0 10px 20px rgba(0, 0, 0, 0.1);
-
-        margin-bottom: 20px;
-
-        font-size: 1.2rem;
-
-        font-weight: bold;
-
-        color: #ff477e;
-
-        border: 2px solid #ff477e;
-
-        z-index: 5;
-
-        display: flex;
-
-        gap: 15px;
-
-        position: relative;
-    }
-
-    .countdown-item {
-        display: inline-block;
-        text-align: center;
-    }
-
-    .countdown-number {
-        font-size: 1.5rem;
-        color: #333;
-        display: block;
-    }
-
-
-    /* ================================
-       MAIN CARD
-       ================================ */
-
-    .card {
-        background: rgba(255, 255, 255, 0.95);
-
-        backdrop-filter: blur(5px);
-
-        padding: 40px;
-
-        border-radius: 20px;
-
-        box-shadow:
-            0 20px 40px rgba(0, 0, 0, 0.15);
-
-        text-align: center;
-
-        max-width: 500px;
-
-        width: 100%;
-
-        position: relative;
-
-        z-index: 5;
-
-        border: 3px solid #ff477e;
-    }
-
-
-    /* ================================
-       HEADING
-       ================================ */
-
-    h1 {
-        color: #ff477e;
-
-        font-size: 2.5rem;
-
-        margin-top: 0;
-        margin-bottom: 10px;
-
-        transform: translateY(0);
-
-        animation:
-            bounce 2s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-        0%,
-        100% {
-            transform: translateY(0);
+            overflow-x: hidden;
+            position: relative;
+            isolation: isolate;
         }
 
-        50% {
-            transform: translateY(-8px);
+        /* Fixed photo background */
+
+        .background-slideshow {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            overflow: hidden;
+            background: #ffe6eb;
         }
-    }
+
+        .background-photo {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+            object-position: center;
+
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .background-photo.active {
+            opacity: 1;
+        }
+
+        /* Overlay to keep the text readable */
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+
+            background: rgba(55, 20, 35, 0.42);
+
+            pointer-events: none;
+        }
+
+        /* ==================================
+           COUNTDOWN TIMER
+           ================================== */
+
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.96);
+
+            padding: 15px 25px;
+            border-radius: 50px;
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+            margin-bottom: 22px;
+
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ff477e;
+
+            border: 2px solid #ff477e;
+
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+
+            position: relative;
+            z-index: 5;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-size: 1.5rem;
+            color: #333;
+            display: block;
+        }
+
+        /* ==================================
+           BIRTHDAY CARD
+           ================================== */
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+
+            padding: 35px;
+            border-radius: 22px;
+
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+            text-align: center;
+
+            max-width: 650px;
+            width: 100%;
+
+            position: relative;
+            z-index: 5;
+
+            border: 3px solid #ff477e;
+        }
+
+        h1 {
+            color: #ff477e;
+            font-size: 2.5rem;
+            line-height: 1.25;
+
+            margin-top: 0;
+            margin-bottom: 15px;
+
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .subtitle {
+            color: #2ec4b6;
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* ==================================
+           BIRTHDAY MESSAGE
+           ================================== */
+
+        .wish {
+            font-size: 1.08rem;
+            line-height: 1.9;
+            color: #555;
+            text-align: left;
+            margin: 0;
+        }
+
+        .wish p {
+            margin-bottom: 18px;
+        }
+
+        .wish p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: #ff477e;
+            font-weight: bold;
+        }
+
+        .signature {
+            margin-top: 25px;
+            color: #ff477e;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .decorative-divider {
+            color: #ffb703;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            margin: 18px 0;
+        }
+
+        /* ==================================
+           FLOATING BALLOONS
+           ================================== */
+
+        .balloon {
+            position: fixed;
+            bottom: -120px;
+
+            width: 45px;
+            height: 58px;
+
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+
+            opacity: 0.85;
+            z-index: 3;
+
+            pointer-events: none;
+
+            animation: floatUp 9s linear forwards;
+        }
+
+        .balloon::after {
+            content: "";
+
+            position: absolute;
+            bottom: -6px;
+            left: 19px;
+
+            width: 0;
+            height: 0;
+
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 7px solid currentColor;
+        }
+
+        .balloon-string {
+            position: absolute;
+
+            top: 58px;
+            left: 22px;
+
+            width: 1px;
+            height: 30px;
+
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(40px, -55vh) rotate(10deg);
+            }
+
+            100% {
+                transform: translate(-35px, -125vh) rotate(-10deg);
+            }
+        }
+
+        /* ==================================
+           FOOTER
+           ================================== */
+
+        .footer {
+            text-align: center;
+            color: white;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+            font-size: 0.85rem;
+            margin-top: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ==================================
+           MOBILE RESPONSIVENESS
+           ================================== */
+
+        @media (max-width: 600px) {
+            body {
+                padding: 18px 12px;
+            }
+
+            .countdown-container {
+                width: 100%;
+                padding: 12px 10px;
+                gap: 12px;
+                font-size: 0.8rem;
+            }
+
+            .countdown-number {
+                font-size: 1.2rem;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .wish {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .signature {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            h1 {
+                animation: none;
+            }
+
+            .background-photo {
+                transition: none;
+            }
+
+            .balloon {
+                animation: none;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================================
+         BACKGROUND SLIDESHOW
+         ================================== -->
+
+    <div class="background-slideshow" id="backgroundSlideshow">
+
+    
+        <img
+            class="background-photo active"
+            src="https://drive.google.com/file/d/1gfS4sSxjLmxZ_5Dh_lzKKmg91DW-ouGz/view?usp=drive_link"
+            alt="Birthday background photo 1"
+            onerror="this.style.display='none'">
+
+        <img
+            class="background-photo"
+            src="https://drive.google.com/file/d/1KyGau-lVfk1YI8kiSLpiEE278m7puxjP/view?usp=drive_link"
+            alt="Birthday background photo 2"
+            onerror="this.style.display='none'">
+
+        <img
+            class="background-photo"
+            src="https://drive.google.com/file/d/1v7iXv7XfP6NYbrRrBTGGgEuM4dIV3llL/view?usp=drive_link"
+            alt="Birthday background photo 3"
+            onerror="this.style.display='none'">
+
+        <img
+            class="background-photo"
+            src="https://drive.google.com/file/d/1lRagmrMWpN1GgRdY6TAXAkrVyYDG1HEH/view?usp=drive_link"
+            alt="Birthday background photo 4"
+            onerror="this.style.display='none'">
 
 
-    /* ================================
-       BIRTHDAY MESSAGE
-       ================================ */
+    </div>
 
-    .wish {
-        font-size: 1.2rem;
-
-        line-height: 1.6;
-
-        color: #555;
-
-        margin-bottom: 30px;
-    }
+    <div class="background-overlay"></div>
 
 
-    /* ================================
-       POLL
-       ================================ */
+    <!-- ==================================
+         COUNTDOWN TIMER
+         ================================== -->
 
-    .poll-container {
-        background: #fff0f3;
+    <div class="countdown-container" id="countdown">
 
-        padding: 20px;
+        <div class="countdown-item">
+            <span class="countdown-number" id="days">00</span>
+            Days
+        </div>
+
+        <div class="countdown-item">
+            <span class="countdown-number" id="hours">00</span>
+            Hrs
+        </div>
+
+        <div class="countdown-item">
+            <span class="countdown-number" id="minutes">00</span>
+            Mins
+        </div>
+
+        <div class="countdown-item">
+            <span class="countdown-number" id="seconds">00</span>
+            Secs
+        </div>
+
+    </div>
+
+
+    <!-- ==================================
+         BIRTHDAY CARD
+         ================================== -->
+
+    <main class="card">
+
+        <h1>Happy Birthday! 🎂✨</h1>
+
+        <div class="subtitle">
+            Celebrating You, Omwanchi! ❤️
+        </div>
+
+        <div class="decorative-divider">
+            ✨ 🎈 ✨
+        </div>
+
+        <div class="wish">
+
+            <p>
+                Happy 26th Birthday,
+                <span class="highlight">Omwanchi! ❤️🎉</span>
+                Today is all about celebrating you, the wonderful person
+                you are, the memories you've made and all the beautiful
+                things that still lie ahead of you. Twenty-six marks another
+                exciting chapter, full of new adventures, unexpected
+                blessings, opportunities to grow and countless reasons
+                to smile.
+            </p>
+
+            <p>
+                As you step into this new year of life, I wish you nothing
+                but genuine happiness, peace of mind, good health and success
+                in everything you set your heart on. May life open doors for
+                you that you never imagined, may your hard work pay off in
+                ways that leave you grateful and may every challenge teach
+                you something that makes you wiser and stronger.
+            </p>
+
+            <p>
+                I hope this year brings you beautiful moments that turn into
+                unforgettable memories, laughter that makes your stomach
+                hurt, conversations that stay with you long after they end
+                and people who make life feel lighter and more meaningful.
+                May you always be surrounded by people who genuinely care
+                about you, celebrate your wins, encourage you when things
+                get difficult and remind you that you do not have to
+                figure everything out all at once.
+            </p>
+
+            <p>
+                May you never run short of reasons to be grateful or things
+                to look forward to. May your plans come together, your
+                aspirations become reality and your efforts lead you closer
+                to the life you've always envisioned for yourself. Whenever
+                life doesn't go according to plan, may you find the strength
+                to keep going, the wisdom to appreciate the lessons, and the
+                hope to believe that brighter days are ahead.
+            </p>
+
+            <p>
+                Most importantly, I hope you make time to enjoy the journey.
+                Celebrate the little victories, laugh a little louder, worry a little less
+                about what you cannot control, and give yourself credit for how far
+                you've come. You deserve moments of rest just as much as
+                moments of achievement. May this new chapter bring you a
+                beautiful balance of ambition, adventure, peace, meaningful
+                friendships and all the little things that make life special.
+            </p>
+
+            <p>
+                Today, you have every reason to smile, enjoy! 🥳🎂
+            </p>
+
+            <p>
+                Here's to <span class="highlight">26</span> — to growing,
+                glowing, learning, winning, loving, exploring, and becoming
+                an even more amazing version of yourself. May this be a year
+                of answered prayers, new opportunities, beautiful surprises,
+                fulfilled dreams and blessings that exceed your expectations.
+                May happiness find you in ordinary moments, peace stay with
+                you through uncertain ones, and love surround you in more
+                ways than you can count.
+            </p>
+
+            <p>
+                <span class="highlight">
+                    Happy 26th Birthday once again, Omwanchi!
+                </span>
+                
+            </p>
+
+        </div>
+
+        <div class="decorative-divider">
+            🎈 💖 🎂 💖 🎈
+        </div>
+
+        <div class="signature">
+            Cheers to an amazing 26th year! 🥂✨
+        </div>
+
+    </main>
+
+
+    <div class="footer">
+        Made with ❤️ to celebrate my Omwanchi 😊
+    </div>
+
+
+    <!-- ==================================
+         JAVASCRIPT
+         ================================== -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            /* ==================================
+               BACKGROUND PHOTO SLIDESHOW
+               ================================== */
+
+            const photos = Array.from(
+                document.querySelectorAll(".background-photo")
+            );
+
+
+            const googleDriveFolderLink =
+                "https://drive.google.com/drive/folders/1ShcBOuZUKPrX88r6qtWwpm1KXqgwamQs?usp=drive_link";
+
+
+            let currentPhoto = 0;
+
+            // Only display photos that loaded successfully.
+            function startSlideshow() {
+
+                const loadedPhotos = photos.filter(function (photo) {
+                    return photo.complete &&
+                           photo.naturalWidth > 0;
+                });
+
+                // If no images load, retain the background fallback colour.
+                if (loadedPhotos.length === 0) {
+                    console.warn(
+                        "No background photos loaded. Check the image URLs."
+                    );
+                    return;
+                }
+
+                photos.forEach(function (photo) {
+                    photo.classList.remove("active");
+                });
+
+                let visibleIndex = 0;
+
+                loadedPhotos.forEach(function (photo, index) {
+                    photo.classList.toggle(
+                        "active",
+                        index === 0
+                    );
+                });
+
+                if (loadedPhotos.length < 2) {
+                    return;
+                }
+
+                setInterval(function () {
+
+                    loadedPhotos[visibleIndex]
+                        .classList.remove("active");
+
+                    visibleIndex =
+                        (visibleIndex + 1) % loadedPhotos.length;
+
+                    loadedPhotos[visibleIndex]
+                        .classList.add("active");
+
+                }, 5000);
+            }
+
+            // Wait until image loading has been checked.
+            Promise.all(
+                photos.map(function (photo) {
+                    if (photo.complete) {
+                        return Promise.resolve();
+                    }
+
+                    return new Promise(function (resolve) {
+                        photo.addEventListener("load", resolve, {
+                            once: true
+                        });
+
+                        photo.addEventListener("error", resolve, {
+                            once: true
+                        });
+                    });
+                })
+            ).then(startSlideshow);
+
+
+            /* ==================================
+               COUNTDOWN TIMER
+               ================================== */
+
+            const targetDate = new Date(
+                "October 10, 2026 00:00:00"
+            ).getTime();
+
+            const countdown = document.getElementById("countdown");
+
+            function updateCountdown() {
+
+                const now = Date.now();
+                const difference = targetDate - now;
+
+                if (difference <= 0) {
+
+                    countdown.textContent =
+                        "The Big Day Is Here! 🥳🎉";
+
+                    clearInterval(countdownInterval);
+
+                    return;
+                }
+
+                const days = Math.floor(
+                    difference / (1000 * 60 * 60 * 24)
+                );
+
+                const hours = Math.floor(
+                    (difference % (1000 * 60 * 60 * 24)) /
+                    (1000 * 60 * 60)
+                );
+
+                const minutes = Math.floor(
+                    (difference % (1000 * 60 * 60)) /
+                    (1000 * 60)
+                );
+
+                const seconds = Math.floor(
+                    (difference % (1000 * 60)) / 1000
+                );
+
+                document.getElementById("days").textContent =
+                    String(days).padStart(2, "0");
+
+                document.getElementById("hours").textContent =
+                    String(hours).padStart(2, "0");
+
+                document.getElementById("minutes").textContent =
+                    String(minutes).padStart(2, "0");
+
+                document.getElementById("seconds").textContent =
+                    String(seconds).padStart(2, "0");
+            }
+
+            updateCountdown();
+
+            const countdownInterval = setInterval(
+                updateCountdown,
+                1000
+            );
+
+
+            /* ==================================
+               FLOATING BALLOONS
+               ================================== */
+
+            const balloonColors = [
+                "#ff477e",
+                "#2ec4b6",
+                "#ffb703",
+                "#0077b6",
+                "#ff70a6",
+                "#70d6ff"
+            ];
+
+            function createBalloon() {
+
+                const balloon = document.createElement("div");
+
+                balloon.className = "balloon";
+
+                const color = balloonColors[
+                    Math.floor(
+                        Math.random() * balloonColors.length
+                    )
+                ];
+
+                balloon.style.backgroundColor = color;
+                balloon.style.color = color;
+
+                balloon.style.left =
+                    Math.random() * 95 + "vw";
+
+                balloon.style.animationDuration =
+                    (7 + Math.random() * 5) + "s";
+
+                const string = document.createElement("div");
+
+                string.className = "balloon-string";
+
+                balloon.appendChild(string);
+
+                document.body.appendChild(balloon);
+
+                balloon.addEventListener(
+                    "animationend",
+                    function () {
+                        balloon.remove();
+                    },
+                    { once: true }
+                );
+
+                setTimeout(function () {
+                    balloon.remove();
+                }, 15000);
+            }
+
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createBalloon, i * 600);
+            }
+
+            setInterval(createBalloon, 1800);
+
+        });
+    </script>
+
+</body>
+</html>
 ```
